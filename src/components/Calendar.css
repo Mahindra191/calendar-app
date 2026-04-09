@@ -1,78 +1,323 @@
-.has-note {
-  border: 2px solid green;
-}
+/* Calendar.css */
 
-.dot {
-  width: 5px;
-  height: 5px;
-  background: red;
-  border-radius: 50%;
-  margin: 4px auto 0;
-}
-
+/* Month navigation container (should already exist) */
 .month-nav {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
-  background: #f9fafb;
-  border-bottom: 1px solid #eee;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: white; /* Match the card */
+}
+
+/* Ensure the navigation uses the circular buttons from your image */
+.nav-btn-circle {
+  background-color: #f0f4ff; /* Light blue from image */
+  border: 1px solid #dbeafe;
+  color: #2563eb;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  transition: background-color 0.2s;
+}
+
+.nav-btn-circle:hover {
+  background-color: #dbeafe;
 }
 
 .month-title {
-  font-size: 20px;
-  font-weight: 600;
-  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* ========================================================= */
+/* NEW: CSS for the image banner                           */
+/* ========================================================= */
+/* 1. INCREASE IMAGE SIZE */
+.calendar-hero-banner {
+  width: 100%;
+  /* Increased from 150px/200px to 350px for a dramatic "Wall" look */
+  height: 350px; 
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Adjusting position to ensure the mountain peaks/climber are visible */
+  object-position: center 30%; 
+}
+
+/* 2. DECREASE DATES SIZE */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* Reduced gap for a tighter look */
+  gap: 2px; 
+  padding-top: 0.5rem;
+}
+
+/* Targeting the DayCell - adjust these class names if they differ in your DayCell.jsx */
+.day-cell {
+  padding: 8px !important; /* Smaller padding */
+  font-size: 0.85rem !important; /* Smaller font for dates */
+  height: 40px !important; /* Fixed smaller height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3. ADJUST HEADER & LABELS */
+.month-title {
+  font-size: 1.25rem; /* Slightly smaller month heading */
+}
+
+.weekday-labels .label {
+  font-size: 0.75rem; /* Smaller Sun, Mon, Tue labels */
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Adjust the main content container to look more compact */
+.flex.flex-col.md-flex-row {
+  padding: 1rem 1.5rem;
+}
+/* Position the dot at the bottom center of the cell */
+.dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ef4444; /* Bright Red */
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* If the day is the start or end (dark blue bg), make the dot white or yellow */
+.bg-blue-600 .dot,
+.bg-blue-800 .dot {
+  background-color: #ffffff;
+}
+
+/* Make sure the cell handles height consistently */
+.day-cell-container {
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* Sidebar Container */
+.notes-panel {
   flex: 1;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-left: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
 }
 
-.nav-btn {
-  background: white;
-  border: 1px solid #ddd;
-  padding: 6px 12px;
+.notes-panel h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+}
+
+.selected-date-label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+/* Input Styling */
+.notes-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: none;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.2s;
 }
 
-.nav-btn:hover {
-  background: #2563eb;
-  color: white;
+.notes-input:focus {
+  outline: none;
   border-color: #2563eb;
 }
 
-.notes {
-  width: 260px;
-  border-left: 1px solid #eee;
-  padding: 16px;
-  background: #fafafa;
+/* Button Styling */
+.add-note-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
 
-.notes input {
-  width: 100%;
-  padding: 8px;
+.add-note-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.add-note-btn:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* List Styling */
+.saved-notes-list {
+  margin-top: 1.5rem;
+  overflow-y: auto;
+}
+
+.note-item {
+  list-style: none;
+  padding: 0.6rem;
+  background-color: #f8fafc;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #334155;
+  border-left: 3px solid #2563eb;
+}
+
+.no-notes-text {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  text-align: center;
+  margin-top: 1rem;
+}
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.note-item:hover {
+  background-color: #f1f5f9;
+}
+
+.edit-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.2s;
+  padding: 4px;
+}
+
+.note-item:hover .edit-icon-btn {
+  opacity: 1; /* Show on hover */
+}
+
+.cancel-btn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+/* Style for when we are actively editing */
+.notes-input.editing {
+  border-color: #f59e0b; /* Orange border for edit mode */
+  background-color: #fffbeb;
+}
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+  background: #ffffff;
   border-radius: 8px;
   margin-bottom: 8px;
+  border-left: 4px solid #2563eb;
+  transition: transform 0.1s ease;
 }
 
-.notes button {
-  width: 100%;
-  padding: 8px;
-  background: #2563eb;
-  color: white;
-  border-radius: 8px;
+.note-text {
+  flex: 1;
+  font-size: 0.85rem;
+  padding-right: 10px;
+  word-break: break-word;
+}
+
+.note-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0; /* Hide by default */
+  transition: opacity 0.2s ease;
+}
+
+.note-item:hover .note-actions {
+  opacity: 1; /* Show on hover */
+}
+
+.delete-icon-btn, .edit-icon-btn {
+  background: none;
+  border: none;
   cursor: pointer;
+  padding: 2px;
+  font-size: 0.9rem;
+  filter: grayscale(1);
+  transition: filter 0.2s;
 }
 
-.notes ul {
-  margin-top: 10px;
-  list-style: none;
-  padding: 0;
+.delete-icon-btn:hover {
+  filter: grayscale(0);
 }
 
-.notes li {
-  background: white;
-  padding: 6px;
-  margin-bottom: 5px;
-  border-radius: 6px;
+.edit-icon-btn:hover {
+  filter: grayscale(0);
+}
+/* Styling for the Edit and Delete buttons in the list */
+.note-actions {
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.note-item:hover .note-actions {
+  opacity: 1; /* Icons appear when you hover over the note */
+}
+
+.delete-icon-btn:hover {
+  transform: scale(1.2);
+  filter: hue-rotate(0deg) saturate(2); /* Makes the trash can pop red */
+}
+
+.edit-icon-btn:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+
+/* Give the Save button a slightly different color when editing */
+.add-note-btn {
+  transition: all 0.3s ease;
+}
+
+/* If the text says "Save Changes", you could optionally change the color */
+.add-note-btn:not(:disabled):active {
+  transform: scale(0.98);
 }

@@ -12,15 +12,16 @@ export default function DayCell({
   return (
     <div
       onClick={() => onClick(day)}
-      className={`p-3 text-center cursor-pointer rounded-lg transition
+      className={`p-3 text-center cursor-pointer rounded-lg transition relative
       ${isStart ? "bg-blue-600 text-white" : ""}
       ${isEnd ? "bg-blue-800 text-white" : ""}
       ${isInRange ? "bg-blue-200" : ""}
-      ${isSelected ? "selected" : ""}
-      ${hasNote ? "has-note" : ""}
+      ${isSelected ? "bg-blue-100 ring-2 ring-blue-400" : ""} 
       hover:bg-blue-100`}
     >
       {format(day, "d")}
+
+      {/* The Red Dot */}
       {hasNote && <div className="dot"></div>}
     </div>
   );
